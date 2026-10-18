@@ -1,0 +1,5 @@
+{
+  "name": "AttendPulse - Anti-Proxy QR Attendance System",
+  "description": "Cryptographically signed 10-second rotating QR attendance management system with device binding, geofencing, 75% eligibility reports, and audit security verification.",
+  "requestFramePermissions": ["camera", "geolocation"]
+}

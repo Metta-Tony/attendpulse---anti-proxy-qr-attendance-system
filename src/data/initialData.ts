@@ -1,0 +1,341 @@
+import { Course, LectureSession, SecurityAuditLog, User, Venue, AttendanceRecord } from '../types/attendance';
+
+export const INITIAL_VENUES: Venue[] = [
+  {
+    id: 'ven-lta',
+    code: 'LT-A',
+    name: 'Engineering Lecture Theatre A',
+    building: 'Faculty of Engineering Complex, Level 1',
+    latitude: 6.524379,
+    longitude: 3.379205,
+    radiusMeters: 50,
+    capacity: 180,
+  },
+  {
+    id: 'ven-cl3',
+    code: 'CL-3',
+    name: 'Computing & Software Systems Lab 3',
+    building: 'Department of Computer Science, 2nd Floor',
+    latitude: 6.524950,
+    longitude: 3.379850,
+    radiusMeters: 35,
+    capacity: 75,
+  },
+  {
+    id: 'ven-aud',
+    code: 'SC-AUD',
+    name: 'University Science Auditorium',
+    building: 'Central Academic Core',
+    latitude: 6.523810,
+    longitude: 3.378500,
+    radiusMeters: 65,
+    capacity: 350,
+  },
+];
+
+export const INITIAL_USERS: User[] = [
+  {
+    id: 'usr-lec-1',
+    matricOrStaffId: 'STF/CSC/2012',
+    name: 'Dr. Sarah Okonjo',
+    email: 's.okonjo@apex.edu.ng',
+    role: 'lecturer',
+    department: 'Computer Science',
+  },
+  {
+    id: 'usr-adm-1',
+    matricOrStaffId: 'ADM/ICT/1004',
+    name: 'Engr. Victor Balogun',
+    email: 'v.balogun@apex.edu.ng',
+    role: 'admin',
+    department: 'Academic Computing & Registry',
+  },
+  {
+    id: 'usr-stu-1',
+    matricOrStaffId: '2021/CSC/042',
+    name: 'Tobi Adeleke',
+    email: 'tobi.adeleke@student.apex.edu.ng',
+    role: 'student',
+    department: 'Computer Science',
+    boundDeviceId: 'DEV-A49F2B81-4201',
+    deviceModel: 'Samsung Galaxy A54',
+    enrolledCourseIds: ['crs-csc401', 'crs-csc405'],
+  },
+  {
+    id: 'usr-stu-2',
+    matricOrStaffId: '2021/CSC/019',
+    name: 'Chioma Eze',
+    email: 'chioma.eze@student.apex.edu.ng',
+    role: 'student',
+    department: 'Computer Science',
+    boundDeviceId: 'DEV-7B12C09A-1902',
+    deviceModel: 'Apple iPhone 13',
+    enrolledCourseIds: ['crs-csc401', 'crs-csc405'],
+  },
+  {
+    id: 'usr-stu-3',
+    matricOrStaffId: '2021/CSC/007',
+    name: 'Aminu Mohammed',
+    email: 'aminu.m@student.apex.edu.ng',
+    role: 'student',
+    department: 'Computer Science',
+    boundDeviceId: 'DEV-C13E8890-0703',
+    deviceModel: 'Google Pixel 7',
+    enrolledCourseIds: ['crs-csc401'],
+  },
+  {
+    id: 'usr-stu-4',
+    matricOrStaffId: '2021/CSC/033',
+    name: 'Grace Nwosu',
+    email: 'grace.n@student.apex.edu.ng',
+    role: 'student',
+    department: 'Computer Science',
+    boundDeviceId: 'DEV-33A299F1-3304',
+    deviceModel: 'Xiaomi Redmi Note 12',
+    enrolledCourseIds: ['crs-csc401', 'crs-csc405'],
+  },
+  {
+    id: 'usr-stu-5',
+    matricOrStaffId: '2021/CSC/058',
+    name: 'David Kalu',
+    email: 'david.kalu@student.apex.edu.ng',
+    role: 'student',
+    department: 'Computer Science',
+    boundDeviceId: 'DEV-99FA01BC-5805',
+    deviceModel: 'OnePlus Nord CE 3',
+    enrolledCourseIds: ['crs-csc401', 'crs-csc405'],
+  },
+  {
+    id: 'usr-stu-6',
+    matricOrStaffId: '2021/CSC/081',
+    name: 'Maryam Aliyu',
+    email: 'maryam.aliyu@student.apex.edu.ng',
+    role: 'student',
+    department: 'Computer Science',
+    boundDeviceId: 'DEV-4E8019AC-8106',
+    deviceModel: 'Infinix Note 30',
+    enrolledCourseIds: ['crs-csc401'],
+  },
+  {
+    id: 'usr-stu-7',
+    matricOrStaffId: '2021/CSC/099',
+    name: 'Samuel Ojo',
+    email: 'samuel.ojo@student.apex.edu.ng',
+    role: 'student',
+    department: 'Computer Science',
+    boundDeviceId: 'DEV-281C990A-9907',
+    deviceModel: 'Tecno Camon 20 Pro',
+    enrolledCourseIds: ['crs-csc401', 'crs-csc405'],
+  },
+  {
+    id: 'usr-stu-8',
+    matricOrStaffId: '2021/MECH/012',
+    name: 'Kelvin Briggs',
+    email: 'kelvin.briggs@student.apex.edu.ng',
+    role: 'student',
+    department: 'Mechanical Engineering',
+    boundDeviceId: 'DEV-88EF1120-1208',
+    deviceModel: 'Samsung Galaxy S22',
+    enrolledCourseIds: [], // Not enrolled in CSC 401
+  },
+];
+
+export const INITIAL_COURSES: Course[] = [
+  {
+    id: 'crs-csc401',
+    code: 'CSC 401',
+    title: 'Distributed Systems & Cloud Architecture',
+    lecturerId: 'usr-lec-1',
+    lecturerName: 'Dr. Sarah Okonjo',
+    department: 'Computer Science',
+    creditUnits: 3,
+    semester: 'Harmattan Semester 2025/2026',
+    totalPlannedSessions: 14,
+    enrolledStudentIds: [
+      'usr-stu-1',
+      'usr-stu-2',
+      'usr-stu-3',
+      'usr-stu-4',
+      'usr-stu-5',
+      'usr-stu-6',
+      'usr-stu-7',
+    ],
+  },
+  {
+    id: 'crs-csc405',
+    code: 'CSC 405',
+    title: 'Cryptographic Protocols & Network Security',
+    lecturerId: 'usr-lec-1',
+    lecturerName: 'Dr. Sarah Okonjo',
+    department: 'Computer Science',
+    creditUnits: 3,
+    semester: 'Harmattan Semester 2025/2026',
+    totalPlannedSessions: 12,
+    enrolledStudentIds: [
+      'usr-stu-1',
+      'usr-stu-2',
+      'usr-stu-4',
+      'usr-stu-5',
+      'usr-stu-7',
+    ],
+  },
+];
+
+export const INITIAL_SESSIONS: LectureSession[] = [
+  {
+    id: 'sess-csc401-08',
+    courseId: 'crs-csc401',
+    courseCode: 'CSC 401',
+    courseTitle: 'Distributed Systems & Cloud Architecture',
+    lecturerId: 'usr-lec-1',
+    venueId: 'ven-lta',
+    venueName: 'Engineering Lecture Theatre A',
+    secretKey: 'a8f3b29c01de47f289b415e612a4c901',
+    startTime: new Date(Date.now() - 25 * 60 * 1000).toISOString(),
+    endTime: new Date(Date.now() + 65 * 60 * 1000).toISOString(),
+    isActive: true,
+    isPaused: false,
+    topic: 'Session 08: Fault Tolerance & Raft Consensus Algorithm',
+    date: new Date().toISOString().split('T')[0],
+  },
+  {
+    id: 'sess-csc401-07',
+    courseId: 'crs-csc401',
+    courseCode: 'CSC 401',
+    courseTitle: 'Distributed Systems & Cloud Architecture',
+    lecturerId: 'usr-lec-1',
+    venueId: 'ven-lta',
+    venueName: 'Engineering Lecture Theatre A',
+    secretKey: 'c4e9123049bba108f9182390aedbc902',
+    startTime: new Date(Date.now() - 7 * 24 * 3600 * 1000).toISOString(),
+    endTime: new Date(Date.now() - 7 * 24 * 3600 * 1000 + 2 * 3600 * 1000).toISOString(),
+    isActive: false,
+    isPaused: false,
+    topic: 'Session 07: MapReduce & Distributed Data Processing',
+    date: '2026-10-10',
+  },
+];
+
+// Historical attendance across sessions 1 to 7 to calculate accurate 75% thresholds
+export const INITIAL_ATTENDANCE: AttendanceRecord[] = [
+  // Session 8 (Today - Live)
+  {
+    id: 'att-live-1',
+    sessionId: 'sess-csc401-08',
+    courseId: 'crs-csc401',
+    studentId: 'usr-stu-2',
+    studentMatric: '2021/CSC/019',
+    studentName: 'Chioma Eze',
+    timestamp: new Date(Date.now() - 14 * 60 * 1000).toISOString(),
+    status: 'success',
+    deviceId: 'DEV-7B12C09A-1902',
+    deviceModel: 'Apple iPhone 13',
+    studentLatitude: 6.524388,
+    studentLongitude: 3.379210,
+    distanceMeters: 1.2,
+    processingTimeMs: 4.1,
+    isManualOverride: false,
+  },
+  {
+    id: 'att-live-2',
+    sessionId: 'sess-csc401-08',
+    courseId: 'crs-csc401',
+    studentId: 'usr-stu-4',
+    studentMatric: '2021/CSC/033',
+    studentName: 'Grace Nwosu',
+    timestamp: new Date(Date.now() - 10 * 60 * 1000).toISOString(),
+    status: 'success',
+    deviceId: 'DEV-33A299F1-3304',
+    deviceModel: 'Xiaomi Redmi Note 12',
+    studentLatitude: 6.524395,
+    studentLongitude: 3.379198,
+    distanceMeters: 2.1,
+    processingTimeMs: 4.3,
+    isManualOverride: false,
+  },
+];
+
+// Pre-fill student attendance statistics across the 7 prior sessions
+// total 7 sessions held so far:
+// Chioma Eze: attended 7 / 7 (100%)
+// Grace Nwosu: attended 7 / 7 (100%)
+// Tobi Adeleke: attended 6 / 7 (85.7%)
+// Samuel Ojo: attended 6 / 7 (85.7%)
+// David Kalu: attended 5 / 7 (71.4%) -> Below 75%!
+// Aminu Mohammed: attended 4 / 7 (57.1%) -> Below 75%!
+// Maryam Aliyu: attended 3 / 7 (42.8%) -> Below 75%!
+
+export const PAST_ATTENDANCE_COUNTS: Record<string, number> = {
+  'usr-stu-1': 6, // Tobi Adeleke
+  'usr-stu-2': 7, // Chioma Eze
+  'usr-stu-3': 4, // Aminu Mohammed (< 75%)
+  'usr-stu-4': 7, // Grace Nwosu
+  'usr-stu-5': 5, // David Kalu (< 75%)
+  'usr-stu-6': 3, // Maryam Aliyu (< 75%)
+  'usr-stu-7': 6, // Samuel Ojo
+};
+
+export const INITIAL_AUDIT_LOGS: SecurityAuditLog[] = [
+  {
+    id: 'aud-001',
+    timestamp: new Date(Date.now() - 14 * 60 * 1000).toISOString(),
+    sessionId: 'sess-csc401-08',
+    courseCode: 'CSC 401',
+    studentMatric: '2021/CSC/019',
+    studentName: 'Chioma Eze',
+    action: 'SCAN_ATTEMPT',
+    outcome: 'ALLOWED',
+    checksFailed: [],
+    clientIp: '192.168.1.104',
+    deviceId: 'DEV-7B12C09A-1902',
+    distanceMeters: 1.2,
+    processingTimeMs: 4.1,
+  },
+  {
+    id: 'aud-002',
+    timestamp: new Date(Date.now() - 12 * 60 * 1000).toISOString(),
+    sessionId: 'sess-csc401-08',
+    courseCode: 'CSC 401',
+    studentMatric: '2021/CSC/007',
+    studentName: 'Aminu Mohammed',
+    action: 'SCAN_ATTEMPT',
+    outcome: 'BLOCKED',
+    reason: 'OUTSIDE_GEOFENCE',
+    checksFailed: ['geofence'],
+    clientIp: '105.112.44.18',
+    deviceId: 'DEV-C13E8890-0703',
+    distanceMeters: 284.5,
+    processingTimeMs: 4.6,
+  },
+  {
+    id: 'aud-003',
+    timestamp: new Date(Date.now() - 10 * 60 * 1000).toISOString(),
+    sessionId: 'sess-csc401-08',
+    courseCode: 'CSC 401',
+    studentMatric: '2021/CSC/033',
+    studentName: 'Grace Nwosu',
+    action: 'SCAN_ATTEMPT',
+    outcome: 'ALLOWED',
+    checksFailed: [],
+    clientIp: '192.168.1.118',
+    deviceId: 'DEV-33A299F1-3304',
+    distanceMeters: 2.1,
+    processingTimeMs: 4.3,
+  },
+  {
+    id: 'aud-004',
+    timestamp: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
+    sessionId: 'sess-csc401-08',
+    courseCode: 'CSC 401',
+    studentMatric: '2021/CSC/033',
+    studentName: 'Grace Nwosu',
+    action: 'SCAN_ATTEMPT',
+    outcome: 'BLOCKED',
+    reason: 'DUPLICATE_SCAN',
+    checksFailed: ['duplicate'],
+    clientIp: '192.168.1.118',
+    deviceId: 'DEV-33A299F1-3304',
+    distanceMeters: 2.4,
+    processingTimeMs: 3.9,
+  },
+];
