@@ -5,6 +5,9 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    base: process.env.GITHUB_ACTIONS
+      ? '/attendpulse---anti-proxy-qr-attendance-system/'
+      : '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

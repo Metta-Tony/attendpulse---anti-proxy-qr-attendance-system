@@ -20,3 +20,8 @@ Prerequisites: Node.js
    `npm run dev`
 3. Open the app in your browser at:
    `http://localhost:3000`
+
+## Deployment
+
+The `main` branch is deployed to GitHub Pages using GitHub Actions:
+https://metta-tony.github.io/attendpulse---anti-proxy-qr-attendance-system/
